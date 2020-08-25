@@ -1,4 +1,7 @@
-﻿<div class="text-center">
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<StripeSettings> Stripe
+
+<div class="text-center">
     <h3 class="display-8">You've reached...</h3>
     <h1 class="display-4">The Virtual Car Show HQ!</h1>
 
@@ -15,3 +18,16 @@
     <p>(Could be at the bottom of the main page or a link to a separate About Us page)</p>
     <p>During the Covid-19 pandemic, four outgoing coding students were on a mission to... blah blah blah... and the Virtual Car Show HQ was founded!</p>
 </div>
+
+<form asp-asp-controller="Home" asp-action="Charge" method="POST">
+<article>
+    <label>Amount: $5.00</label>
+</article>
+<script src="//checkout.stripe.com/v2/checkout.js"
+        class="stripe-button"
+        data-key="@Stripe.Value.PublishableKey"
+        data-locale="auto"
+        data-description="Sample Charge"
+        data-amount="500">
+</script>
+</form>

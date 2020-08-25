@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Virtual_Car_Show_Project.Models;
+using Stripe;
 
 namespace Virtual_Car_Show_Project
 {
@@ -30,6 +31,8 @@ namespace Virtual_Car_Show_Project
             services.AddSession();
 
             services.AddMvc(options => options.EnableEndpointRouting = false);
+
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -42,6 +45,8 @@ namespace Virtual_Car_Show_Project
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
 
             app.UseStaticFiles();
 
