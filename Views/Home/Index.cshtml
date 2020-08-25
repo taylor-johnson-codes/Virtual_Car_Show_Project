@@ -1,3 +1,19 @@
-﻿<div class="text-center">
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<StripeSettings> Stripe
+
+<div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
+
+<form asp-asp-controller="Home" asp-action="Charge" method="POST">
+<article>
+    <label>Amount: $5.00</label>
+</article>
+<script src="//checkout.stripe.com/v2/checkout.js"
+        class="stripe-button"
+        data-key="@Stripe.Value.PublishableKey"
+        data-locale="auto"
+        data-description="Sample Charge"
+        data-amount="500">
+</script>
+</form>
