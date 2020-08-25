@@ -20,7 +20,7 @@ namespace Virtual_Car_Show_Project.Controllers
         [HttpGet("")]
         public IActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         
