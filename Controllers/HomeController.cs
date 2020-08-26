@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 using Virtual_Car_Show_Project.Models;
 using Stripe;
 
@@ -45,7 +39,5 @@ namespace Virtual_Car_Show_Project.Controllers
 
             return View("Success");
         }
-
-        
     }
 }
