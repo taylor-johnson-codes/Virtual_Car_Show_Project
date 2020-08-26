@@ -1,6 +1,7 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
+﻿
+* {
+  font-family: 'Titillium Web', sans-serif;
+}
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -9,19 +10,23 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color: #952618;
+}
+
+button{
+  margin: 13px 12px 12px 10px;
 }
 
 .btn-primary {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background-color:  #952618;
+  border-color: #952618;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background-color:  #952618;
+  border-color: #952618;
 }
 
 /* Sticky footer styles
@@ -62,10 +67,28 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
+.d-flex {
+  background-image: url("https://amygarey.files.wordpress.com/2020/08/stang_home-01-01.jpeg");
+}
+
+.jumbotron {
+  background-image: url("https://amygarey.files.wordpress.com/2020/08/stang_home-01-01.jpeg");
+  background-size: cover;
+  color: #F8F9FA;
+  /* -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: rgb(88, 85, 85); */
+}
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+i {
+  width: 50px;
+  height: 50px;
 }
