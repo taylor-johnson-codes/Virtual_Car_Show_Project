@@ -1,0 +1,61 @@
+@model CarShow
+
+<h3 class="text-center">Create a New Car Show</h3>
+
+<form asp-controller="CarShow" asp-action="Create_Car_Show" method="POST">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="Title"></span>
+        <input class="form-control" asp-for="Title">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ClubName"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="ClubName"></span>
+        <input class="form-control" asp-for="ClubName">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StartDateAndTime"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="StartDateAndTime"></span>
+        <input class="form-control" asp-for="StartDateAndTime">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EndDateAndTime"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="EndDateAndTime"></span>
+        <input class="form-control" asp-for="EndDateAndTime">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StreetAddress"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="StreetAddress"></span>
+        <input class="form-control" asp-for="StreetAddress">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="City"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="City"></span>
+        <input class="form-control" asp-for="City">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="State"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="State"></span>
+        <input class="form-control" asp-for="State">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ZipCode"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="ZipCode"></span>
+        <input class="form-control" asp-for="ZipCode">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="Description"></span>
+        <textarea asp-for="Description" cols="50" rows="5"></textarea>
+    </div>
+
+    <button class="btn btn-info">Create Car Show</button>
+</form>

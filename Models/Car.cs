@@ -22,7 +22,6 @@ namespace Virtual_Car_Show_Project.Models
         [Required(ErrorMessage = "is required")]
         public string Category { get; set; }
 
-        [Required(ErrorMessage = "is required")]
         [MaxLength(100, ErrorMessage = "can't be more than 100 characters")]
         public string Description { get; set; }
 
@@ -31,6 +30,7 @@ namespace Virtual_Car_Show_Project.Models
 
         public int UserId { get; set; }  // Foreign Key
 
-        public User Submittor { get; set; }  // Navigation Property
+        public User Registerer { get; set; }  // Navigation Property
+        public CarShow CarShowToAttend { get; set; }  // Navigation Property
     }
 }

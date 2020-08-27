@@ -49,6 +49,6 @@ namespace Virtual_Car_Show_Project.Models
         [Display(Name = "Confirm Password")] 
         public string Confirm { get; set; }
 
-        public List<Car> SubmittedCars { get; set; }  // Navigation Property
+        public List<Car> RegisteredCars { get; set; }  // Navigation Property
     }
 }
