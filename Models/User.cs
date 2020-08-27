@@ -35,7 +35,6 @@ namespace Virtual_Car_Show_Project.Models
 
         [Required(ErrorMessage = "is required")]
         [MinLength(8, ErrorMessage = "must be at least 8 characters")]
-        [MaxLength(45, ErrorMessage = "can't be more than 45 characters")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

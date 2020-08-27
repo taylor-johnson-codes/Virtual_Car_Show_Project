@@ -41,7 +41,7 @@ namespace Virtual_Car_Show_Project.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private string? CarShowTitle { get { return HttpContext.Session.GetString("CarShowTitle"); } }
+        private string CarShowTitle { get { return HttpContext.Session.GetString("CarShowTitle"); } }
 
         [HttpGet("{CarShowTitle}")]
         public IActionResult Car_Show()
