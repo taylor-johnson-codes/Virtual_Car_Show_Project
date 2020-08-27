@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Virtual_Car_Show_Project.Models;
+using Stripe;
 
 namespace Virtual_Car_Show_Project.Controllers
 {
@@ -21,12 +22,22 @@ namespace Virtual_Car_Show_Project.Controllers
         [HttpGet("user_profile/{userId}")]
         public IActionResult ProfilePage()
         {
+            if (isLoggedIn == false)
+            {
+                return RedirectToAction("Login_Reg_Page", "LoginReg");
+            }
+
             return View("User_Profile_Page");
         }
 
         [HttpPost("register_car")]
         public IActionResult RegisterCar(Car newCar)
         {
+            if (isLoggedIn == false)
+            {
+                return RedirectToAction("Login_Reg_Page", "LoginReg");
+            }
+
             if (ModelState.IsValid == false)
             {
                 return View("User_Profile_Page");
@@ -36,11 +47,28 @@ namespace Virtual_Car_Show_Project.Controllers
             db.Cars.Add(newCar);
             db.SaveChanges();
 
-            // need to go to payment page next before redirecting back to profile
-            return RedirectToAction("User_Profile_Page");
-            // return RedirectToAction("Occasion", new { occasionId = newOccasion.OccasionId });
+            return RedirectToAction("PayFee");
+        }
 
+        [HttpPost("charge")]
+        public IActionResult Charge(string StripeEamail, string StripeToken)
+        {
+            var customerService = new CustomerService();
+            var chargeService = new ChargeService();
 
+            var customer = customerService.Create(new CustomerCreateOptions {
+                Email = StripeEamail,
+                Source = StripeToken,
+            });
+
+            var charge = chargeService.Create(new ChargeCreateOptions {
+                Amount = 500,
+                Description = "Sample Charge",
+                Currency = "usd",
+                Customer = customer.Id
+            });
+
+            return View("User_Profile_Page");
         }
     }
 }

@@ -16,6 +16,12 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="Fee"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="Fee"></span>
+        <input class="form-control" asp-for="Fee">
+    </div>
+
+    <div class="form-group">
         <label asp-for="StartDateAndTime"></label>
         <span class="text-danger font-weight-bold" asp-validation-for="StartDateAndTime"></span>
         <input class="form-control" asp-for="StartDateAndTime">

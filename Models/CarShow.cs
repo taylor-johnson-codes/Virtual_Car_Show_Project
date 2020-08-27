@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Virtual_Car_Show_Project.Models
 {
@@ -20,6 +21,13 @@ namespace Virtual_Car_Show_Project.Models
         [MaxLength(30, ErrorMessage = "can't be more than 30 characters")]
         [Display(Name = "Car Club Name")]
         public string ClubName { get; set; }
+
+        [Required(ErrorMessage = "is required")]
+        [Range(1, 1000)]
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18, 2)")]
+        [Display(Name = "Registration Fee")]
+        public decimal Fee { get; set; }
 
         [Required]
         [Display(Name = "Start Date and Time")]
