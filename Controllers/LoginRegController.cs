@@ -17,7 +17,7 @@ namespace Virtual_Car_Show_Project.Controllers
         [HttpGet("login_register")]
         public IActionResult LoginRegister()
         {
-            return View("Login_Reg_Page");
+            return View("LoginRegister");
         }
 
         [HttpPost("register")]
@@ -33,7 +33,7 @@ namespace Virtual_Car_Show_Project.Controllers
 
             if(ModelState.IsValid == false)
             {
-                return View("Login_Reg_Page");
+                return View("LoginRegister");
             }
 
             PasswordHasher<User> hasher = new PasswordHasher<User>();
@@ -44,7 +44,7 @@ namespace Virtual_Car_Show_Project.Controllers
             
             HttpContext.Session.SetInt32("userId", newUser.UserId);
             HttpContext.Session.SetString("userName", newUser.FirstName);
-            return RedirectToAction("User_Profile_Page");
+            return RedirectToAction("ProfilePage", "UserProfile");
         }
 
         [HttpPost("login")]
@@ -54,7 +54,7 @@ namespace Virtual_Car_Show_Project.Controllers
 
             if(ModelState.IsValid == false)
             {
-                return View("Login_Reg_Page");
+                return View("LoginRegister");
             }
 
             User dbUser = db.Users.FirstOrDefault(u => u.Email == loginUser.LoginEmail);
@@ -62,7 +62,7 @@ namespace Virtual_Car_Show_Project.Controllers
             if(dbUser == null)
             {
                 ModelState.AddModelError("LoginEmail", genericErrorMsg);
-                return View("Login_Reg_Page");
+                return View("LoginRegister");
             }
 
             PasswordHasher<LoginUser> hasher = new PasswordHasher<LoginUser>();
@@ -71,19 +71,19 @@ namespace Virtual_Car_Show_Project.Controllers
             if(pwCompareResult == 0)
             {
                 ModelState.AddModelError("LoginEmail", genericErrorMsg);
-                return View("Login_Reg_Page");
+                return View("LoginRegister");
             }
 
             HttpContext.Session.SetInt32("userId", dbUser.UserId);
             HttpContext.Session.SetString("userName", dbUser.FirstName);
-            return RedirectToAction("User_Profile_Page");
+            return RedirectToAction("ProfilePage", "UserProfile");
         }
 
         [HttpGet("logout")]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Login_Reg_Page");
+            return RedirectToAction("LoginRegister");
         }
     }
 }

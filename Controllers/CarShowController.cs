@@ -21,11 +21,16 @@ namespace Virtual_Car_Show_Project.Controllers
         [HttpGet("new_car_show")]
         public IActionResult New_Car_Show()
         {
+            if (isLoggedIn == false)
+            {
+                return RedirectToAction("LoginRegister", "LoginReg");
+            }
+
             return View("New_Car_Show");
         }
 
         [HttpPost("new_car_show/create")]
-        public IActionResult NewCarShow(CarShow newCarShow)
+        public IActionResult Create_Car_Show(CarShow newCarShow)
         {
             if (ModelState.IsValid == false)
             {

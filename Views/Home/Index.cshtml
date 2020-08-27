@@ -1,13 +1,17 @@
 ﻿<div class="text-center">
     <h3 class="display-8">You've reached...</h3>
-    <h1 class="display-4">The Virtual Car Show HQ!</h1>
+    <h1 class="display-4 mb-5">The Virtual Car Show HQ!</h1>
 
-    <h5 class="mt-5">Placeholder: Login/Reg</h5>
-    <img style="width: 50%;" src="~/img/login_reg_example.jpg" alt="img">
+    <p>
+        <a asp-controller="LoginReg" asp-action="LoginRegister">Go to Login/Register Page</a>    
+    </p>
+
+    <p>
+        <a asp-controller="CarShow" asp-action="New_Car_Show">Add a Car Show</a>
+    </p>
 
     <h5 class="mt-5">Placeholder: Table of upcoming car shows</h5>
     <img src="~/img/table_example.jpg" alt="img">
-    <a asp-controller="CarShow" asp-action="New_Car_Show">Add a Car Show</a>
 
     <h5 class="mt-5">Placeholder: Table of past car shows that goes to the winners page</h5>
     <img src="~/img/table_example.jpg" alt="img">

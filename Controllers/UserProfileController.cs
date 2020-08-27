@@ -19,15 +19,15 @@ namespace Virtual_Car_Show_Project.Controllers
         // gets boolean if user is logged in or not
         private bool isLoggedIn { get { return userId != null; } }
 
-        [HttpGet("user_profile/{userId}")]
+        [HttpGet("user_profile")]
         public IActionResult ProfilePage()
         {
             if (isLoggedIn == false)
             {
-                return RedirectToAction("Login_Reg_Page", "LoginReg");
+                return RedirectToAction("LoginRegister", "LoginReg");
             }
 
-            return View("User_Profile_Page");
+            return View("ProfilePage");
         }
 
         [HttpPost("register_car")]
@@ -35,12 +35,12 @@ namespace Virtual_Car_Show_Project.Controllers
         {
             if (isLoggedIn == false)
             {
-                return RedirectToAction("Login_Reg_Page", "LoginReg");
+                return RedirectToAction("LoginRegister", "LoginReg");
             }
 
             if (ModelState.IsValid == false)
             {
-                return View("User_Profile_Page");
+                return View("ProfilePage");
             }
 
             newCar.UserId = (int)userId;
@@ -68,7 +68,7 @@ namespace Virtual_Car_Show_Project.Controllers
                 Customer = customer.Id
             });
 
-            return View("User_Profile_Page");
+            return View("ProfilePage");
         }
     }
 }
