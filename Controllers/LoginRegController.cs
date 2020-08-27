@@ -14,63 +14,76 @@ namespace Virtual_Car_Show_Project.Controllers
         db = context;
         }
 
-        [HttpGet("register_login")]
-        public IActionResult RegisterLogin()
+        [HttpGet("login_register")]
+        public IActionResult LoginRegister()
         {
-            return View();
+            return View("Login_Reg_Page");
         }
 
         [HttpPost("register")]
-        public IActionResult Register(User user)
+        public IActionResult Register(User newUser)
         {
-            if(ModelState.IsValid){
-                if(db.Users.Any(u => u.Email == user.Email)){
-                    ModelState.AddModelError("Email", "Email already exists!");
-                    return View("RegisterLogin");
-                }
-                else{
-                    PasswordHasher<User> Hasher = new PasswordHasher<User>();
-                    user.Password = Hasher.HashPassword(user, user.Password);
-                    db.Users.Add(user);
-                    db.SaveChanges();
-                    User registerId = db.Users.FirstOrDefault(u => u.Email == user.Email);
-                    HttpContext.Session.SetInt32("UserId", registerId.UserId);
-                    return RedirectToAction("UserProfilePage", "UserProfile");
+            if(ModelState.IsValid)
+            {
+                if(db.Users.Any(u => u.Email == newUser.Email))
+                {
+                    ModelState.AddModelError("Email", "Email already registered!");
                 }
             }
-            else{
-                return View("RegisterLogin");
+
+            if(ModelState.IsValid == false)
+            {
+                return View("Login_Reg_Page");
             }
+
+            PasswordHasher<User> hasher = new PasswordHasher<User>();
+            newUser.Password = hasher.HashPassword(newUser, newUser.Password);
+
+            db.Users.Add(newUser);
+            db.SaveChanges();
+            
+            HttpContext.Session.SetInt32("userId", newUser.UserId);
+            HttpContext.Session.SetString("userName", newUser.FirstName);
+            return RedirectToAction("User_Profile_Page");
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginReg submission)
+        public IActionResult Login(LoginUser loginUser)
         {
-            if(ModelState.IsValid){
-                var userEm = db.Users.FirstOrDefault(u => u.Email == submission.Email);
-                if(userEm == null){
-                    ModelState.AddModelError("Email", "Invalid Email");
-                    return View("RegisterLogin");
-                }
-                PasswordHasher<LoginReg> hasher  = new PasswordHasher<LoginReg>();
-                PasswordVerificationResult result = hasher.VerifyHashedPassword(submission, userEm.Password, submission.Password);
-                if(result == 0){
-                    ModelState.AddModelError("Password", "Invalid Password");
-                    return View("RegisterLogin");
-                }
-                HttpContext.Session.SetInt32("UserId", userEm.UserId);
-                return RedirectToAction("UserProfilePage", "UserProfile");
+            string genericErrorMsg = "Invalid email or password!";
+
+            if(ModelState.IsValid == false)
+            {
+                return View("Login_Reg_Page");
             }
-            else{
-                return View("RegisterLogin");
+
+            User dbUser = db.Users.FirstOrDefault(u => u.Email == loginUser.LoginEmail);
+
+            if(dbUser == null)
+            {
+                ModelState.AddModelError("LoginEmail", genericErrorMsg);
+                return View("Login_Reg_Page");
             }
+
+            PasswordHasher<LoginUser> hasher = new PasswordHasher<LoginUser>();
+            PasswordVerificationResult pwCompareResult = hasher.VerifyHashedPassword(loginUser, dbUser.Password, loginUser.LoginPassword);
+            
+            if(pwCompareResult == 0)
+            {
+                ModelState.AddModelError("LoginEmail", genericErrorMsg);
+                return View("Login_Reg_Page");
+            }
+
+            HttpContext.Session.SetInt32("userId", dbUser.UserId);
+            HttpContext.Session.SetString("userName", dbUser.FirstName);
+            return RedirectToAction("User_Profile_Page");
         }
 
         [HttpGet("logout")]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("RegisterLogin");
+            return RedirectToAction("Login_Reg_Page");
         }
     }
 }

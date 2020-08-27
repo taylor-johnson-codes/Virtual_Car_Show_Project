@@ -12,31 +12,35 @@ namespace Virtual_Car_Show_Project.Controllers
         db = context;
         }
 
-        [HttpGet("user_profile")]
-        public IActionResult UserProfilePage()
+        // gets userId
+        private int? userId { get { return HttpContext.Session.GetInt32("userId"); } }
+
+        // gets boolean if user is logged in or not
+        private bool isLoggedIn { get { return userId != null; } }
+
+        [HttpGet("user_profile/{userId}")]
+        public IActionResult ProfilePage()
         {
-            return View();
+            return View("User_Profile_Page");
         }
 
-        [HttpPost("submit_car")]
-        public IActionResult SubmitCar(Car car)
+        [HttpPost("register_car")]
+        public IActionResult RegisterCar(Car newCar)
         {
-            if(ModelState.IsValid){
-                Car NewCar = new Car(){
-                    UserId = (int)HttpContext.Session.GetInt32("UserId"),
-                    Year = car.Year,
-                    Make = car.Make,
-                    Model = car.Model,
-                    Category = car.Category,
-                    Description = car.Description
-                };
-                db.Cars.Add(NewCar);
-                db.SaveChanges();
-                return RedirectToAction("UserProfilePage");
+            if (ModelState.IsValid == false)
+            {
+                return View("User_Profile_Page");
             }
-            else{
-                return View("UserProfilePage");
-            }
+
+            newCar.UserId = (int)userId;
+            db.Cars.Add(newCar);
+            db.SaveChanges();
+
+            // need to go to payment page next before redirecting back to profile
+            return RedirectToAction("User_Profile_Page");
+            // return RedirectToAction("Occasion", new { occasionId = newOccasion.OccasionId });
+
+
         }
     }
 }

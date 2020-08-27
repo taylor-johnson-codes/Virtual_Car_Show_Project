@@ -1,0 +1,51 @@
+@model Car
+
+<h3 class="text-center">Register a Car to a Car Show</h3>
+
+<form asp-controller="UserProfile" asp-action="RegisterCar" method="POST">
+    <div class="form-group">
+        <label asp-for="Year"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="Year"></span>
+        <input class="form-control" asp-for="Year">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Make"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="Make"></span>
+        <input class="form-control" asp-for="Make">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Model"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="Model"></span>
+        <input class="form-control" asp-for="Model">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="Category"></span>
+        <select asp-for="Category">
+            <option value="2020-Present">2020-Present</option>
+            <option value="2010-2019">2010-2019</option>
+            <option value="2000-2009">2000-2009</option>
+            <option value="1990-1999">1990-1999</option>
+            <option value="1980-1989">1980-1989</option>
+            <option value="1970-1979">1970-1979</option>
+            <option value="1960-1969">1960-1969</option>
+            <option value="1950-1959">1950-1959</option>
+            <option value="1940-1949">1940-1949</option>
+            <option value="1930-1939">1930-1939</option>
+            <option value="1920-1929">1920-1929</option>
+            <option value="1910-1919">1910-1919</option>
+            <option value="1900-1909">1900-1909</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="Description"></span>
+        <textarea asp-for="Description" cols="50" rows="5"></textarea>
+    </div>
+
+    <button class="btn btn-info">Register Car</button>
+</form>
