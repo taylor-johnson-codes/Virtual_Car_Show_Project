@@ -15,7 +15,7 @@ namespace Virtual_Car_Show_Project.Controllers
         [HttpGet("")]
         public IActionResult HomePage()
         {
-            return View();
+            return View("HomePage");
         }
 
         [HttpPost("/charge")]
@@ -38,8 +38,6 @@ namespace Virtual_Car_Show_Project.Controllers
             });
 
             return View("Success");
-
-//             return View("Index");
         }
     }
 }
