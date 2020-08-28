@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Virtual_Car_Show_Project.Models;
@@ -46,21 +47,20 @@ namespace Virtual_Car_Show_Project.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private string CarShowTitle { get { return HttpContext.Session.GetString("CarShowTitle"); } }
-
-        [HttpGet("{CarShowTitle}")]
-        public IActionResult Car_Show()
+        [HttpGet("CarShow/{carShowId}")]
+        public IActionResult Car_Show(int carShowId)
         {
-            return View("Car_Show_Page");
+            CarShow displayCarShow = db.CarShows.FirstOrDefault(cs => cs.CarShowId == carShowId);
+            return View("Car_Show_Page", displayCarShow);
         }
 
-        [HttpGet("{CarShowTitle}/rules")]
+        [HttpGet("CarShow/rules")]
         public IActionResult Rules()
         {
             return View("Rules");
         }
 
-        [HttpGet("{CarShowTitle}/raffles")]
+        [HttpGet("CarShow/raffles")]
         public IActionResult Raffles()
         {
             return View("Raffles");

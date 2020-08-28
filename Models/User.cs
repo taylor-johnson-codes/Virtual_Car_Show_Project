@@ -49,5 +49,6 @@ namespace Virtual_Car_Show_Project.Models
         public string Confirm { get; set; }
 
         public List<Car> RegisteredCars { get; set; }  // Navigation Property
+        public List<CarShow> CarShowsCreated { get; set; }
     }
 }

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Virtual_Car_Show_Project.Models;
 using Stripe;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Virtual_Car_Show_Project.Controllers
 {
@@ -26,6 +28,8 @@ namespace Virtual_Car_Show_Project.Controllers
             {
                 return RedirectToAction("LoginRegister", "LoginReg");
             }
+            List<CarShow> carshows = db.CarShows.OrderBy(cs => cs.StartDateAndTime).ToList();
+            ViewBag.CarShows = carshows;
 
             return View("ProfilePage");
         }
