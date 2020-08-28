@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Virtual_Car_Show_Project.Models;
 
 namespace Virtual_Car_Show_Project.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20200828191314_AddedToRegisteredCarsModel")]
+    partial class AddedToRegisteredCarsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,38 +122,6 @@ namespace Virtual_Car_Show_Project.Migrations
                     b.ToTable("CarShows");
                 });
 
-            modelBuilder.Entity("Virtual_Car_Show_Project.Models.RegisteredCars", b =>
-                {
-                    b.Property<int>("RegisteredCarsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CarShowId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RegisteredCarsId");
-
-                    b.HasIndex("CarId");
-
-                    b.HasIndex("CarShowId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RegisteredCars");
-                });
-
             modelBuilder.Entity("Virtual_Car_Show_Project.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -217,27 +187,6 @@ namespace Virtual_Car_Show_Project.Migrations
                 {
                     b.HasOne("Virtual_Car_Show_Project.Models.User", "CarShowCreator")
                         .WithMany("CarShowsCreated")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Virtual_Car_Show_Project.Models.RegisteredCars", b =>
-                {
-                    b.HasOne("Virtual_Car_Show_Project.Models.Car", "CarOwned")
-                        .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Virtual_Car_Show_Project.Models.CarShow", "CarShowToAttend")
-                        .WithMany()
-                        .HasForeignKey("CarShowId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Virtual_Car_Show_Project.Models.User", "CarOwner")
-                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

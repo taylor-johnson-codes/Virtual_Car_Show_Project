@@ -11,5 +11,7 @@ namespace Virtual_Car_Show_Project.Models
         public DbSet<Car> Cars {get;set;}
 
         public DbSet<CarShow> CarShows {get;set;}
+
+        public DbSet<RegisteredCars> RegisteredCars {get;set;}
     }
 }
