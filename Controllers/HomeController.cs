@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Virtual_Car_Show_Project.Models;
-using Stripe;
 
 namespace Virtual_Car_Show_Project.Controllers
 {
@@ -38,7 +37,6 @@ namespace Virtual_Car_Show_Project.Controllers
             });
 
             return View("Success");
-
         }
     }
 }

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Virtual_Car_Show_Project.Models;
 
 namespace Virtual_Car_Show_Project.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20200827065210_FirstMigrationAfterDrop")]
+    partial class FirstMigrationAfterDrop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,9 +91,6 @@ namespace Virtual_Car_Show_Project.Migrations
 
                     b.Property<DateTime>("EndDateAndTime")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("Fee")
-                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<DateTime>("StartDateAndTime")
                         .HasColumnType("datetime(6)");

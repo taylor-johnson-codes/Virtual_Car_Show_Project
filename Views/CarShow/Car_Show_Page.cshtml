@@ -1,3 +1,69 @@
+@model CarShow
+
+<div class="container">
+
+    <div class="row mb-2">
+        <h2>@Model.Title</h2>
+    </div>
+
+    <div class="row mb-2">
+        <h4>Hosted by: @Model.ClubName</h4>
+    </div>
+
+    <div class="row mb-2">
+        <h4>Car Show Coordinator: @Model.CarShowCreator.FirstName @Model.CarShowCreator.LastName</h4>
+    </div>
+
+    <div class="row mb-2">
+        <h4>Registration Fee: @Model.Fee</h4>
+    </div>
+
+    <div class="row">
+        <h4>Start Date & Time:</h4>
+    </div>
+    <div class="row mb-2">
+        <p>@Model.StartDateAndTime</p>
+    </div>
+
+    <div class="row">
+        <h4>End Date & Time:</h4>
+    </div>
+    <div class="row mb-2">
+        <p>@Model.EndDateAndTime</p>
+    </div>
+
+    <div class="row">
+        <h4>Location:</h4>
+    </div>
+    <div class="row">
+        <h4>@Model.StreetAddress</h4>
+    </div><div class="row mb-2">
+        <h4>@Model.City, @Model.State @Model.ZipCode</h4>
+    </div>
+
+    <div class="row">
+        <h4>Description:</h4>
+    </div>
+    <div class="row mb-2">
+        <p>@Model.Description</p>
+    </div>
+
+    <div class="row">
+        <h4>Registered Cars:</h4>
+    </div>
+    <div class="row">
+        <ul>
+        @foreach (var item in Model.RegisteredCars)
+        {
+            <li>@item.Year @item.Make @item.Model owned by @item.Registerer.FirstName @item.Registerer.FirstName</li>
+        }
+        </ul>
+    </div>
+
+    
+
+
+
 <div class="text-center">
     <h1 class="display-4">Car Show Title</h1>
     <br>

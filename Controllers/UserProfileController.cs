@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Virtual_Car_Show_Project.Models;
+using Stripe;
 
 namespace Virtual_Car_Show_Project.Controllers
 {
@@ -12,31 +13,62 @@ namespace Virtual_Car_Show_Project.Controllers
         db = context;
         }
 
+        // gets userId
+        private int? userId { get { return HttpContext.Session.GetInt32("userId"); } }
+
+        // gets boolean if user is logged in or not
+        private bool isLoggedIn { get { return userId != null; } }
+
         [HttpGet("user_profile")]
-        public IActionResult UserProfilePage()
+        public IActionResult ProfilePage()
         {
-            return View();
+            if (isLoggedIn == false)
+            {
+                return RedirectToAction("LoginRegister", "LoginReg");
+            }
+
+            return View("ProfilePage");
         }
 
-        [HttpPost("submit_car")]
-        public IActionResult SubmitCar(Car car)
+        [HttpPost("register_car")]
+        public IActionResult RegisterCar(Car newCar)
         {
-            if(ModelState.IsValid){
-                Car NewCar = new Car(){
-                    UserId = (int)HttpContext.Session.GetInt32("UserId"),
-                    Year = car.Year,
-                    Make = car.Make,
-                    Model = car.Model,
-                    Category = car.Category,
-                    Description = car.Description
-                };
-                db.Cars.Add(NewCar);
-                db.SaveChanges();
-                return RedirectToAction("UserProfilePage");
+            if (isLoggedIn == false)
+            {
+                return RedirectToAction("LoginRegister", "LoginReg");
             }
-            else{
-                return View("UserProfilePage");
+
+            if (ModelState.IsValid == false)
+            {
+                return View("ProfilePage");
             }
+
+            newCar.UserId = (int)userId;
+            db.Cars.Add(newCar);
+            db.SaveChanges();
+
+            return RedirectToAction("PayFee");
+        }
+
+        [HttpPost("charge")]
+        public IActionResult Charge(string StripeEamail, string StripeToken)
+        {
+            var customerService = new CustomerService();
+            var chargeService = new ChargeService();
+
+            var customer = customerService.Create(new CustomerCreateOptions {
+                Email = StripeEamail,
+                Source = StripeToken,
+            });
+
+            var charge = chargeService.Create(new ChargeCreateOptions {
+                Amount = 500,
+                Description = "Sample Charge",
+                Currency = "usd",
+                Customer = customer.Id
+            });
+
+            return View("ProfilePage");
         }
     }
 }
