@@ -9,8 +9,8 @@ using Virtual_Car_Show_Project.Models;
 namespace Virtual_Car_Show_Project.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200826053952_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20200826183055_MigrationtheFirst")]
+    partial class MigrationtheFirst
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
