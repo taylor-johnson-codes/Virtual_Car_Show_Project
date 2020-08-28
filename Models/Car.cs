@@ -11,7 +11,7 @@ namespace Virtual_Car_Show_Project.Models
         [Required(ErrorMessage = "is required")]
         [MinLength(4, ErrorMessage = "must be 4 numbers in YYYY format")]
         [MaxLength(4, ErrorMessage = "must be 4 numbers in YYYY format")]
-        public int Year { get; set; }
+        public string Year { get; set; }
 
         [Required(ErrorMessage = "is required")]
         public string Make { get; set; }
