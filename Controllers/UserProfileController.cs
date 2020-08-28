@@ -51,7 +51,13 @@ namespace Virtual_Car_Show_Project.Controllers
             db.Cars.Add(newCar);
             db.SaveChanges();
 
-            return RedirectToAction("PayFee");
+            return View("PayFee");
+        }
+
+        [HttpGet("pay_fee")]
+        public IActionResult PayFee()
+        {
+            return View("PayFee");
         }
 
         [HttpPost("charge")]
@@ -72,7 +78,7 @@ namespace Virtual_Car_Show_Project.Controllers
                 Customer = customer.Id
             });
 
-            return View("ProfilePage");
+            return RedirectToAction("ProfilePage");
         }
     }
 }
