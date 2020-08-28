@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Stripe;
 using Virtual_Car_Show_Project.Models;
 
 namespace Virtual_Car_Show_Project.Controllers

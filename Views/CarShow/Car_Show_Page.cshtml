@@ -59,17 +59,20 @@
     <div class="row">
         <h4>Registered Cars:</h4>
     </div>
-    <div class="row">
-        <ul>
+    @* <div class="row">
         @if (Model.RegisteredCars != null)
         {
-            @foreach (var item in Model.RegisteredCars)
+        <ul>
+            @foreach (var item in ViewBag.RegisteredCars)
             {
+                
                 <li>@item.Year @item.Make @item.Model owned by @item.Registerer.FirstName @item.Registerer.FirstName</li>
             }
-        }
         </ul>
-    </div>
+        }
+    </div> *@
 
-    <p>Show winners if the car show date has passed</p>
+    <br>
+    <br>
+    <h4>(Show winners here if the car show date has passed.)</h4>
 </div>

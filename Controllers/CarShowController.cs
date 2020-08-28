@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Virtual_Car_Show_Project.Models;
 
 namespace Virtual_Car_Show_Project.Controllers
@@ -51,6 +53,13 @@ namespace Virtual_Car_Show_Project.Controllers
         public IActionResult Car_Show(int carShowId)
         {
             CarShow displayCarShow = db.CarShows.FirstOrDefault(cs => cs.CarShowId == carShowId);
+
+            // List<Car> registeredCars = db.Cars
+            // .Include(rs => rs.CarShowId == carShowId)
+            // .ToList();
+
+            // ViewBag.RegisteredCars = registeredCars;
+
             return View("Car_Show_Page", displayCarShow);
         }
 
