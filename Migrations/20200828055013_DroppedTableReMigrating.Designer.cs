@@ -9,8 +9,8 @@ using Virtual_Car_Show_Project.Models;
 namespace Virtual_Car_Show_Project.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200827064341_SecondMigration")]
-    partial class SecondMigration
+    [Migration("20200828055013_DroppedTableReMigrating")]
+    partial class DroppedTableReMigrating
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,7 +25,7 @@ namespace Virtual_Car_Show_Project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CarShowToAttendCarShowId")
+                    b.Property<int>("CarShowId")
                         .HasColumnType("int");
 
                     b.Property<string>("Category")
@@ -59,7 +59,7 @@ namespace Virtual_Car_Show_Project.Migrations
 
                     b.HasKey("CarId");
 
-                    b.HasIndex("CarShowToAttendCarShowId");
+                    b.HasIndex("CarShowId");
 
                     b.HasIndex("UserId");
 
@@ -92,6 +92,9 @@ namespace Virtual_Car_Show_Project.Migrations
                     b.Property<DateTime>("EndDateAndTime")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<decimal>("Fee")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<DateTime>("StartDateAndTime")
                         .HasColumnType("datetime(6)");
 
@@ -99,11 +102,6 @@ namespace Virtual_Car_Show_Project.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(2) CHARACTER SET utf8mb4")
                         .HasMaxLength(2);
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
-                        .HasMaxLength(30);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -115,11 +113,6 @@ namespace Virtual_Car_Show_Project.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
-                        .HasColumnType("varchar(5) CHARACTER SET utf8mb4")
-                        .HasMaxLength(5);
 
                     b.HasKey("CarShowId");
 
@@ -159,8 +152,7 @@ namespace Virtual_Car_Show_Project.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("varchar(45) CHARACTER SET utf8mb4")
-                        .HasMaxLength(45);
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -179,7 +171,9 @@ namespace Virtual_Car_Show_Project.Migrations
                 {
                     b.HasOne("Virtual_Car_Show_Project.Models.CarShow", "CarShowToAttend")
                         .WithMany("RegisteredCars")
-                        .HasForeignKey("CarShowToAttendCarShowId");
+                        .HasForeignKey("CarShowId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Virtual_Car_Show_Project.Models.User", "Registerer")
                         .WithMany("RegisteredCars")
@@ -191,7 +185,7 @@ namespace Virtual_Car_Show_Project.Migrations
             modelBuilder.Entity("Virtual_Car_Show_Project.Models.CarShow", b =>
                 {
                     b.HasOne("Virtual_Car_Show_Project.Models.User", "CarShowCreator")
-                        .WithMany()
+                        .WithMany("CarShowsCreated")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

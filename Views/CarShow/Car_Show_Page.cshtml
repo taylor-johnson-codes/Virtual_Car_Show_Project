@@ -1,44 +1,47 @@
 @model CarShow
 
 <div class="container">
+    <p>(Login/register nav bar)</p>
 
     <div class="row mb-2">
-        <h2>@Model.Title</h2>
+        <h2>Event Title: @Model.Title</h2>
     </div>
 
     <div class="row mb-2">
         <h4>Hosted by: @Model.ClubName</h4>
     </div>
 
-    <div class="row mb-2">
-        <h4>Car Show Coordinator: @Model.CarShowCreator.FirstName @Model.CarShowCreator.LastName</h4>
-    </div>
-
-    <div class="row mb-2">
-        <h4>Registration Fee: @Model.Fee</h4>
-    </div>
-
     <div class="row">
         <h4>Start Date & Time:</h4>
     </div>
     <div class="row mb-2">
-        <p>@Model.StartDateAndTime</p>
+        <p>@Model.StartDateAndTime.ToString("MMM dd, yyyy @ hh:mm tt")</p>
     </div>
 
     <div class="row">
         <h4>End Date & Time:</h4>
     </div>
     <div class="row mb-2">
-        <p>@Model.EndDateAndTime</p>
+        <p>@Model.EndDateAndTime.ToString("MMM dd, yyyy @ hh:mm tt")</p>
     </div>
 
-    <div class="row">
-        <h4>Location:</h4>
-    </div>
-    <div class="row">
-        <h4>@Model.StreetAddress</h4>
-    </div><div class="row mb-2">
-        <h4>@Model.City, @Model.State @Model.ZipCode</h4>
+    <section id="video">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-center">
+                        <h3>Check out our livestream during the event!</h3>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="video">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Ox1XLgafKsE" allowfullscreen></iframe>
+                        </div>
+                    </div> 
+                </div>    
+            </div>
+        </section>
+
+    <div class="row mb-2">
+        <h4>Registration Fee: $@Math.Round(Model.Fee, 2)</h4>
     </div>
 
     <div class="row">
@@ -48,48 +51,25 @@
         <p>@Model.Description</p>
     </div>
 
+    <a class="btn btn-info mb-2" asp-controller="CarShow" asp-action="Rules">Rules page</a>
+    <br>
+    <a class="btn btn-info mb-2" asp-controller="CarShow" asp-action="Raffles">Raffles page</a>
+    <br>
+
     <div class="row">
         <h4>Registered Cars:</h4>
     </div>
     <div class="row">
         <ul>
-        @foreach (var item in Model.RegisteredCars)
+        @if (Model.RegisteredCars != null)
         {
-            <li>@item.Year @item.Make @item.Model owned by @item.Registerer.FirstName @item.Registerer.FirstName</li>
+            @foreach (var item in Model.RegisteredCars)
+            {
+                <li>@item.Year @item.Make @item.Model owned by @item.Registerer.FirstName @item.Registerer.FirstName</li>
+            }
         }
         </ul>
     </div>
 
-    
-
-
-
-<div class="text-center">
-    <h1 class="display-4">Car Show Title</h1>
-    <br>
-    <h3>Car Show Details</h3>
-    <p>i.e. date, time, hosted by Name of Car Club, etc.</p>
-    <br>
-    <h3>Links:</h3>
-    <a asp-controller="CarShow" asp-action="Rules">Link to Rules page</a>
-    <br>
-    <a asp-controller="CarShow" asp-action="Raffles">Link to Raffles page</a>
-    <p>Link to login/reg to participate in this car show (disappears after car show date has passed)</p>
-    <p>Link to car show winners if the car show date has passed</p>
-    <br>
-    <br>
-    <h3>Placeholder for livestream that will play on day of event</h3>
-    <br>
-    <br>
-    <h3>Display participants' names and car photos here?</h3>
-    <p>Where ever they're displayed, can use jQuery carousel to display pictures.</p>
-    <p>Have voting options appear only if today's date matches the car show date and only participants can vote, but not on their own car.</p>
-    <p>References:</p>
-    <p>https://www.youtube.com/results?search_query=jquery+carousel+tutorial+.net+core</p>
-    <p>https://www.w3schools.com/bootstrap/bootstrap_ref_js_carousel.asp</p>
-    <p>https://www.jqueryscript.net/blog/best-carousel.html</p>
-    <br>
-    <br>
-    <h3>Right side panel of sponsor logos?</h3>
-    <p>Sponsers sponser show to advertise their business so if sponsor logos are to the right they're still visiable but kinda out of the way also so people can focus on the cars mainly.</p>
+    <p>Show winners if the car show date has passed</p>
 </div>

@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Stripe;
 using Virtual_Car_Show_Project.Models;
 
 namespace Virtual_Car_Show_Project.Controllers
@@ -14,7 +18,12 @@ namespace Virtual_Car_Show_Project.Controllers
         [HttpGet("")]
         public IActionResult HomePage()
         {
-            return View("HomePage");
+            List<CarShow> carshows = db.CarShows
+                .Include(cs => cs.CarShowCreator)
+                .Include(cs => cs.RegisteredCars)
+                .OrderBy(cs => cs.StartDateAndTime)
+                .ToList();
+            return View("HomePage", carshows);
         }
 
         [HttpPost("/charge")]

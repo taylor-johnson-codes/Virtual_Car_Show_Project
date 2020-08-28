@@ -28,7 +28,12 @@ namespace Virtual_Car_Show_Project.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
+        [Required(ErrorMessage = "is required")]
         public int UserId { get; set; }  // Foreign Key
+
+        [Required(ErrorMessage = "is required")]
+        [Display(Name = "Car Show to Attend")]
+        public int CarShowId {get;set;}
 
         public User Registerer { get; set; }  // Navigation Property
         public CarShow CarShowToAttend { get; set; }  // Navigation Property

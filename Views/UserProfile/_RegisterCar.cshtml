@@ -2,9 +2,18 @@
 
 <h3 class="text-center">Register a Car to a Car Show</h3>
 
-<p>need to add drop down of existing car shows for User to pick a car show for their car</p>
-
 <form asp-controller="UserProfile" asp-action="RegisterCar" method="POST">
+    <div class="form-group">
+        <label asp-for="CarShowId"></label>
+        <span class="text-danger font-weight-bold" asp-validation-for="CarShowId"></span>
+        <select asp-for="CarShowId" class="custom-select">
+            @foreach (CarShow carshow in ViewBag.CarShows)
+            {
+                <option value="@carshow.CarShowId">@carshow.Title on @carshow.StartDateAndTime.ToString("MMM dd, yyyy")</option>
+            }
+        </select>
+    </div>
+
     <div class="form-group">
         <label asp-for="Year"></label>
         <span class="text-danger font-weight-bold" asp-validation-for="Year"></span>
